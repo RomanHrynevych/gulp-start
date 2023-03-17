@@ -1,0 +1,21 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap";
+
+:root {
+  --black: #161626;
+  --bg-second: #343434;
+  --main: #3cc5fb;
+  --white: #ffffff;
+  --primary: #ffde33;
+  --secondary: #088ded;
+
+  --font-main: "Montserrat", sans-serif;
+
+  /* --mobile-menu-start-point and @custom-media --mobile-menu-start-point must be the same */
+  --mobile-menu-start-point: 1200;
+}
+
+/* --mobile-menu-start-point and @custom-media --mobile-menu-start-point must be the same */
+@custom-media --mobile-menu-start-point (max-width: 1200px);
+
+/* --mobile-menu-end-point must be greater than 1 of the  --mobile-menu-start-point and @custom-media --mobile-menu-start-point */
+@custom-media --mobile-menu-end-point (min-width: 1201px);

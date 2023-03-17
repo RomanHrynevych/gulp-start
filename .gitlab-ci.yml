@@ -1,0 +1,39 @@
+stages:
+  - build
+
+Deploy to dev:
+  stage: build
+  before_script:
+    - apt-get update -y
+  script:
+    - curl -sL https://deb.nodesource.com/setup_14.x | bash
+    - apt-get install nodejs -yq
+    - npm install
+    - npm run deploy
+  after_script:
+    - curl --request POST --data "hash=$PROJECT_HASH&status=$CI_JOB_STATUS&author=$CI_COMMIT_AUTHOR&time=$CI_JOB_STARTED_AT&message=$CI_COMMIT_MESSAGE" "https://onidone.com/api/gitlab" # request to Manager API
+  artifacts:
+    paths:
+      - /home/gitlab-runner/
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /ci for SD/
+
+
+Deploy to dev for SD:
+  stage: build
+  before_script:
+    - apt-get update -y
+  script:
+    - curl -sL https://deb.nodesource.com/setup_14.x | bash
+    - apt-get install nodejs -yq
+    - npm install
+    - npm run deploy-SD
+  after_script:
+    - curl --request POST --data "hash=$PROJECT_HASH&status=$CI_JOB_STATUS&author=$CI_COMMIT_AUTHOR&time=$CI_JOB_STARTED_AT&message=$CI_COMMIT_MESSAGE" "https://onidone.com/api/gitlab" # request to Manager API
+  artifacts:
+    paths:
+      - /home/gitlab-runner/
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /ci for SD/
